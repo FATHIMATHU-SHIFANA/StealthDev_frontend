@@ -4,6 +4,7 @@ import { io, Socket } from 'socket.io-client';
 import { HoldToRevealMessage } from './HoldToRevealMessage';
 import '../styles/PrivateModeScreen.css';
 import { useIsMobile } from '../hooks/useIsMobile';
+import { STORAGE_KEYS } from '../constants/app';
 
 interface PrivateModeScreenProps {
   onModeToggle: () => void;
@@ -24,7 +25,7 @@ export const PrivateModeScreen: React.FC<PrivateModeScreenProps> = ({
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [autoReveal, setAutoReveal] = useState<boolean>(() => localStorage.getItem('stealth_auto_reveal') === 'true');
+  const [autoReveal, setAutoReveal] = useState<boolean>(() => localStorage.getItem(STORAGE_KEYS.AUTO_REVEAL) === 'true');
   const isMobile = useIsMobile();
   const [mobileActivePanel, setMobileActivePanel] = useState<'main' | 'chat'>('main');
 
@@ -97,7 +98,7 @@ export const PrivateModeScreen: React.FC<PrivateModeScreenProps> = ({
   const handleToggleAutoReveal = () => {
     const nextValue = !autoReveal;
     setAutoReveal(nextValue);
-    localStorage.setItem('stealth_auto_reveal', String(nextValue));
+    localStorage.setItem(STORAGE_KEYS.AUTO_REVEAL, String(nextValue));
   };
 
   return (

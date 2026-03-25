@@ -1,9 +1,10 @@
 import { EncodingEngine } from './encoding';
+import { DEFAULTS, STORAGE_KEYS } from '../constants/app';
 
 export class SecurityManager {
-  private static readonly SECRET_KEY_STORAGE = 'stealth_secret_key';
-  private static readonly PANIC_MODE_STORAGE = 'stealth_panic_mode';
-  private static readonly PRIVATE_MODE_STORAGE = 'stealth_private_mode';
+  private static readonly SECRET_KEY_STORAGE = STORAGE_KEYS.SECRET_KEY;
+  private static readonly PANIC_MODE_STORAGE = STORAGE_KEYS.PANIC_MODE;
+  private static readonly PRIVATE_MODE_STORAGE = STORAGE_KEYS.PRIVATE_MODE;
 
   static setSecretKey(key: string): void {
     try {
@@ -16,10 +17,10 @@ export class SecurityManager {
   static getSecretKey(): string {
     try {
       const key = localStorage.getItem(this.SECRET_KEY_STORAGE);
-      return key || 'stealth_dev_key_2024'; // Default fallback
+      return key || DEFAULTS.SECRET_KEY; // Default fallback
     } catch (error) {
       console.error('Failed to retrieve secret key:', error);
-      return 'stealth_dev_key_2024';
+      return DEFAULTS.SECRET_KEY;
     }
   }
 

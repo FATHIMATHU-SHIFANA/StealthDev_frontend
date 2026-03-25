@@ -14,6 +14,12 @@ body {
   overflow: hidden;
 }
 
+/* Better keyboard focus without noisy outlines */
+:where(button, input, textarea, select):focus-visible {
+  outline: 2px solid rgba(69, 147, 255, 0.75);
+  outline-offset: 2px;
+}
+
 #root {
   height: 100vh;
   width: 100vw;
@@ -32,7 +38,7 @@ body {
 }
 
 .auth-card {
-  width: 360px;
+  width: min(420px, 92vw);
   background: linear-gradient(180deg, #121a28 0%, #0f1724 100%);
   border: 1px solid #2c3d58;
   border-radius: 10px;
@@ -43,10 +49,8 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-@media (max-width: 768px) {
-  .auth-card {
-    width: min(92vw, 420px);
-  }
+.auth-card {
+  backdrop-filter: blur(6px);
 }
 
 .auth-card h2 {
@@ -61,12 +65,28 @@ body {
   font-size: 12px;
 }
 
+.auth-form {
+  margin: 0;
+}
+
+.auth-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .auth-input {
   background: #0d1625;
   color: #cdd6e3;
   border: 1px solid #2a3a53;
   border-radius: 8px;
   padding: 9px 10px;
+  width: 100%;
+}
+
+.auth-input:focus {
+  border-color: #4593ff;
+  box-shadow: 0 0 0 2px rgba(69, 147, 255, 0.15);
 }
 
 .auth-button {
@@ -77,6 +97,7 @@ body {
   padding: 9px 12px;
   font-weight: 600;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
 .auth-button:hover {
@@ -146,4 +167,39 @@ input {
 /* Text selection for code elements */
 code, pre, .code-line, .message-text {
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+/* Correct webkit scrollbar selectors (legacy block above has a typo). */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 7px;
+  border: 3px solid #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4e4e52;
+}
+
+::-webkit-scrollbar-corner {
+  background: #1e1e1e;
+}
+
+/* Correct selection selectors (legacy block above has a typo). */
+::selection {
+  background: #264f78;
+  color: #cccccc;
+}
+
+::-moz-selection {
+  background: #264f78;
+  color: #cccccc;
 }

@@ -1,4 +1,5 @@
 import { EncodingEngine } from './encoding';
+import { DEFAULTS } from '../constants/app';
 
 export interface FakeProject {
   id: string;
@@ -337,6 +338,6 @@ API_RATE_LIMIT=100`,
       'Build completed successfully',
     ];
     
-    return buildSteps.map(step => EncodingEngine.encode(step, 'dummy_key', { style: 'logs' }));
+    return buildSteps.map((step) => EncodingEngine.encode(step, DEFAULTS.ENCODING_DUMMY_KEY, { style: 'logs' }));
   }
 }

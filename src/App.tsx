@@ -6,19 +6,20 @@ import { PrivateModeScreen } from './components/PrivateModeScreen';
 import { useAppMode } from './hooks/useAppMode';
 import { SecurityManager } from './utils/security';
 import { autoSafety } from './utils/autoSafety';
+import { DEFAULTS, STORAGE_KEYS } from './constants/app';
 
 const App: React.FC = () => {
   const { isPrivateMode, isPanicMode, togglePrivateMode, activatePanicMode } = useAppMode();
-  const [username, setUsername] = useState<string>(() => localStorage.getItem('stealth_username') || '');
-  const [roomId, setRoomId] = useState<string>(() => localStorage.getItem('stealth_room_id') || 'general');
-  const [usernameInput, setUsernameInput] = useState('');
-  const [roomInput, setRoomInput] = useState('general');
+  const [username, setUsername] = useState<string>(() => localStorage.getItem(STORAGE_KEYS.USERNAME) || '');
+  const [roomId, setRoomId] = useState<string>(() => localStorage.getItem(STORAGE_KEYS.ROOM_ID) || DEFAULTS.ROOM_ID);
+  const [usernameInput, setUsernameInput] = useState<string>('');
+  const [roomInput, setRoomInput] = useState<string>(DEFAULTS.ROOM_ID);
 
   useEffect(() => {
     const initializeApp = async () => {
       try {
         // Use a shared key for multi-user private mode so message reveal stays consistent.
-        SecurityManager.setSecretKey('stealth_dev_key_2024');
+        SecurityManager.setSecretKey(DEFAULTS.SECRET_KEY);
         
         // Initialize auto safety features
         autoSafety.initialize();
@@ -41,21 +42,26 @@ const App: React.FC = () => {
 
   const handleLogin = () => {
     const cleanName = usernameInput.trim();
-    const cleanRoom = roomInput.trim() || 'general';
+    const cleanRoom = roomInput.trim() || DEFAULTS.ROOM_ID;
     if (!cleanName) return;
-    localStorage.setItem('stealth_username', cleanName);
-    localStorage.setItem('stealth_room_id', cleanRoom);
+
+    // Always start chat sessions in private mode after login.
+    SecurityManager.setPrivateMode(true);
+    SecurityManager.setPanicMode(false);
+
+    localStorage.setItem(STORAGE_KEYS.USERNAME, cleanName);
+    localStorage.setItem(STORAGE_KEYS.ROOM_ID, cleanRoom);
     setUsername(cleanName);
     setRoomId(cleanRoom);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('stealth_username');
-    localStorage.removeItem('stealth_room_id');
+    localStorage.removeItem(STORAGE_KEYS.USERNAME);
+    localStorage.removeItem(STORAGE_KEYS.ROOM_ID);
     setUsername('');
-    setRoomId('general');
+    setRoomId(DEFAULTS.ROOM_ID);
     setUsernameInput('');
-    setRoomInput('general');
+    setRoomInput(DEFAULTS.ROOM_ID);
   };
 
   if (!username) {
@@ -64,21 +70,36 @@ const App: React.FC = () => {
         <div className="auth-card">
           <h2>Chat Login</h2>
           <p>Use different usernames on two devices/tabs to chat.</p>
-          <input
-            className="auth-input"
-            value={usernameInput}
-            onChange={(e) => setUsernameInput(e.target.value)}
-            placeholder="Enter username"
-          />
-          <input
-            className="auth-input"
-            value={roomInput}
-            onChange={(e) => setRoomInput(e.target.value)}
-            placeholder="Room id (example: general)"
-          />
-          <button className="auth-button" onClick={handleLogin} disabled={!usernameInput.trim()}>
-            Enter Chat
-          </button>
+          <form
+            className="auth-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+          >
+            <div className="auth-stack">
+              <input
+                className="auth-input"
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                placeholder="Enter username"
+                autoFocus
+                autoComplete="username"
+                inputMode="text"
+              />
+              <input
+                className="auth-input"
+                value={roomInput}
+                onChange={(e) => setRoomInput(e.target.value)}
+                placeholder="Room id (example: general)"
+                autoComplete="off"
+                inputMode="text"
+              />
+              <button className="auth-button" type="submit" disabled={!usernameInput.trim()}>
+                Enter Chat
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     );

@@ -1,7 +1,8 @@
 import { EncodingOptions, EncodingStyle } from '../types';
+import { DEFAULTS } from '../constants/app';
 
 export class EncodingEngine {
-  private static readonly SECRET_KEY = 'stealth_dev_key_2024';
+  private static readonly SECRET_KEY = DEFAULTS.SECRET_KEY;
   
   // Code-style templates
   private static readonly CODE_TEMPLATES = [
@@ -218,6 +219,6 @@ export class EncodingEngine {
     ];
     
     const randomMessage = this.getRandomElement(fakeMessages);
-    return this.encode(randomMessage, 'dummy_key', { style });
+    return this.encode(randomMessage, DEFAULTS.ENCODING_DUMMY_KEY, { style });
   }
 }
