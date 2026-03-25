@@ -1,0 +1,137 @@
+/* Global styles to match Cursor IDE exactly */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #1e1e1e;
+  color: #cccccc;
+  font-family: 'Segoe UI', 'Ubuntu', 'Roboto', 'Oxygen', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+.auth-screen {
+  display: grid;
+  place-items: center;
+  background: #0d1117;
+}
+
+.auth-card {
+  width: 360px;
+  background: linear-gradient(180deg, #121a28 0%, #0f1724 100%);
+  border: 1px solid #2c3d58;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.auth-card h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #e5ebf5;
+}
+
+.auth-card p {
+  margin: 0 0 6px;
+  color: #95a1b3;
+  font-size: 12px;
+}
+
+.auth-input {
+  background: #0d1625;
+  color: #cdd6e3;
+  border: 1px solid #2a3a53;
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+
+.auth-button {
+  background: linear-gradient(180deg, #2d7dff 0%, #1f64d4 100%);
+  color: #ffffff;
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.auth-button:hover {
+  background: linear-gradient(180deg, #3d8bff 0%, #2b73e6 100%);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+}
+
+/* Scrollbar styling to match Cursor IDE */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 7px;
+  border: 3px solid #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4e4e52;
+}
+
+::-webkit-scrollbar-corner {
+  background: #1e1e1e;
+}
+
+/* Selection colors */
+::selection {
+  background: #264f78;
+  color: #cccccc;
+}
+
+::-moz-selection {
+  background: #264f78;
+  color: #cccccc;
+}
+
+/* Focus styles */
+button:focus,
+input:focus {
+  outline: none;
+}
+
+/* Remove default button styles */
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+/* Remove default input styles */
+input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Text selection for code elements */
+code, pre, .code-line, .message-text {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
