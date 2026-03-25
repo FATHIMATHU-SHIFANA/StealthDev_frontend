@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import '../styles/SafeModeScreen.css';
 import { SAFE_MODE_RESPONSE_TEXTS, SAFE_MODE_CODE_SNIPPETS } from '../constants/chatMocks';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 interface SafeModeScreenProps {
   onModeToggle: () => void;
@@ -23,6 +24,13 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
   const [messages, setMessages] = useState<Array<{ id: string; content: string; senderId: string }>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [socket, setSocket] = useState<Socket | null>(null);
+  const isMobile = useIsMobile();
+  const [mobileActivePanel, setMobileActivePanel] = useState<'main' | 'chat'>('main');
+
+  useEffect(() => {
+    if (!isMobile) return;
+    setMobileActivePanel('chat');
+  }, [isMobile]);
 
   useEffect(() => {
     const defaultSocketUrl = `${window.location.protocol}//${window.location.hostname}:5000`;
@@ -120,6 +128,26 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
         <div className="menu-items">File&nbsp;&nbsp;&nbsp;Edit&nbsp;&nbsp;&nbsp;Selection&nbsp;&nbsp;&nbsp;View&nbsp;&nbsp;&nbsp;Go&nbsp;&nbsp;&nbsp;Run&nbsp;&nbsp;&nbsp;Terminal&nbsp;&nbsp;&nbsp;Help</div>
         <div className="window-title">Stealth Dev</div>
         <div className="header-actions">
+          {isMobile && (
+            <div className="mobile-view-toggle" role="tablist" aria-label="Mobile view toggle">
+              <button
+                type="button"
+                className={`mobile-view-toggle-button ${mobileActivePanel === 'main' ? 'active' : ''}`}
+                onClick={() => setMobileActivePanel('main')}
+                aria-pressed={mobileActivePanel === 'main'}
+              >
+                Editor
+              </button>
+              <button
+                type="button"
+                className={`mobile-view-toggle-button ${mobileActivePanel === 'chat' ? 'active' : ''}`}
+                onClick={() => setMobileActivePanel('chat')}
+                aria-pressed={mobileActivePanel === 'chat'}
+              >
+                Chat
+              </button>
+            </div>
+          )}
           <button className="header-logout" onClick={onLogout}>Logout</button>
           <button className="panic-button" onClick={onPanicActivate}>
             ●
@@ -136,7 +164,7 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
 
       <div className="content">
         {/* Left Sidebar - File Explorer */}
-        <div className="sidebar-left">
+        {!isMobile && <div className="sidebar-left">
           <div className="section-title">EXPLORER</div>
           <div className="file-explorer">
             <p className="folder">▷ .bolt</p>
@@ -189,10 +217,10 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
           <div className="file-explorer">
             <p className="file">No timeline entries</p>
           </div>
-        </div>
+        </div>}
 
         {/* Main Area - Editor and Terminal */}
-        <div className="main-area">
+        {(!isMobile || mobileActivePanel === 'main') && <div className="main-area">
           <div className="editor-container">
             <div className="editor-tabs">
               <div className="editor-tab active">
@@ -318,10 +346,10 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
 <span class="success">The build folder is ready to be deployed.</span>` }}
             />
           </div>
-        </div>
+        </div>}
 
         {/* Right Sidebar - Chat */}
-        <div className="sidebar-right">
+        {(!isMobile || mobileActivePanel === 'chat') && <div className="sidebar-right">
           <div className="chat-container">
             <div className="chat-header">
               Proctored and time-bound assess... | Room: {roomId}
@@ -380,7 +408,7 @@ export const SafeModeScreen: React.FC<SafeModeScreenProps> = ({
               <div className="status-bar">Ln 10, Col 1 &nbsp; Spaces: 2 &nbsp; UTF-8 &nbsp; CRLF &nbsp; TypeScript JSX</div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
 
     </div>

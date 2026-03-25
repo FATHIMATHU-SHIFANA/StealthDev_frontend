@@ -15,7 +15,7 @@ build/
 # IDE
 .vscode/
 .idea/
-*.swp
+*.swpg
 *.swo
 
 # OS

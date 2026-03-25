@@ -37,6 +37,28 @@
   gap: 6px;
 }
 
+.safe-mode-screen .mobile-view-toggle {
+  display: none;
+  align-items: center;
+  background: #0c1219;
+  border: 1px solid #2f3a4a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.safe-mode-screen .mobile-view-toggle-button {
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #c8d0db;
+  background: transparent;
+  border: 0;
+}
+
+.safe-mode-screen .mobile-view-toggle-button.active {
+  background: #1b2531;
+  color: #e8edf5;
+}
+
 .safe-mode-screen .header-logout {
   background: #151f2d;
   border: 1px solid #2f425d;
@@ -620,4 +642,55 @@
 .safe-mode-screen .secret-button:hover {
   background: #3e3e42;
   color: #cccccc;
+}
+
+@media (max-width: 768px) {
+  .safe-mode-screen .menu-items {
+    display: none;
+  }
+
+  .safe-mode-screen .mobile-view-toggle {
+    display: inline-flex;
+  }
+
+  .safe-mode-screen .editor-title-tabs {
+    display: none;
+  }
+
+  .safe-mode-screen .content {
+    overflow: hidden;
+  }
+
+  .safe-mode-screen .main-area,
+  .safe-mode-screen .sidebar-right {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .safe-mode-screen .main-area {
+    grid-template-rows: minmax(0, 1fr) minmax(140px, 34vh);
+  }
+
+  .safe-mode-screen .terminal-container {
+    height: auto;
+    min-height: 0;
+  }
+
+  .safe-mode-screen .chat-actions {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .safe-mode-screen .chat-message {
+    max-width: 92%;
+  }
+
+  .safe-mode-screen .chat-input-wrapper {
+    grid-template-columns: 1fr auto;
+  }
+
+  .safe-mode-screen .chat-toolbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
 }

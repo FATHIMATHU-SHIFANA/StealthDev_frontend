@@ -37,6 +37,28 @@
   gap: 6px;
 }
 
+.private-mode-screen .mobile-view-toggle {
+  display: none;
+  align-items: center;
+  background: #0c1219;
+  border: 1px solid #2f3a4a;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.private-mode-screen .mobile-view-toggle-button {
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #c8d0db;
+  background: transparent;
+  border: 0;
+}
+
+.private-mode-screen .mobile-view-toggle-button.active {
+  background: #1b2531;
+  color: #e8edf5;
+}
+
 .private-mode-screen .header-logout {
   background: #151f2d;
   border: 1px solid #2f425d;
@@ -601,4 +623,52 @@
 .private-mode-screen .safe-mode-button:hover {
   background: #3e3e42;
   color: #cccccc;
+}
+
+@media (max-width: 768px) {
+  .private-mode-screen .menu-items {
+    display: none;
+  }
+
+  .private-mode-screen .mobile-view-toggle {
+    display: inline-flex;
+  }
+
+  .private-mode-screen .editor-title-tabs {
+    display: none;
+  }
+
+  .private-mode-screen .content {
+    overflow: hidden;
+    background: #0d1117;
+  }
+
+  .private-mode-screen .main-area,
+  .private-mode-screen .sidebar-right {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .private-mode-screen .main-area {
+    grid-template-rows: minmax(0, 1fr) minmax(140px, 34vh);
+  }
+
+  .private-mode-screen .terminal-container {
+    height: auto;
+    min-height: 0;
+  }
+
+  .private-mode-screen .chat-actions {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .private-mode-screen .chat-message {
+    max-width: 92%;
+  }
+
+  .private-mode-screen .chat-toolbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
 }
