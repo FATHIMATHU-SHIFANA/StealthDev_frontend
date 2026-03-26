@@ -1,15 +1,23 @@
 .app {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
 }
 
 .auth-screen {
   display: grid;
   place-items: center;
-  min-height: 100%;
+  min-height: 100vh;
   width: 100%;
   padding: 16px;
   background: #0d1117;
+}
+
+@supports (min-height: 100dvh) {
+  .app,
+  .auth-screen {
+    min-height: 100dvh;
+  }
 }
 
 .auth-card {
