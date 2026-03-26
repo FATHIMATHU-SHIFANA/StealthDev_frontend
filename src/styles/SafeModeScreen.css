@@ -1,5 +1,6 @@
 .safe-mode-screen {
   height: 100vh;
+  min-height: 100vh;
   background: #0d0f12;
   color: #cccccc;
   font-family: 'Segoe UI', 'Ubuntu', 'Roboto', 'Oxygen', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -7,6 +8,13 @@
   line-height: 1.5;
   display: flex;
   flex-direction: column;
+}
+
+@supports (height: 100dvh) {
+  .safe-mode-screen {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
 }
 
 .safe-mode-screen .top-menu-bar {
