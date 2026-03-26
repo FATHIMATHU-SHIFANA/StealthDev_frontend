@@ -98,6 +98,7 @@ const App: React.FC = () => {
               <button className="auth-button" type="submit" disabled={!usernameInput.trim()}>
                 Enter Chat
               </button>
+              <div className="auth-build">Build: {__APP_BUILD__}</div>
             </div>
           </form>
         </div>
