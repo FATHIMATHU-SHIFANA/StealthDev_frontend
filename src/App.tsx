@@ -7,6 +7,7 @@ import { useAppMode } from './hooks/useAppMode';
 import { SecurityManager } from './utils/security';
 import { autoSafety } from './utils/autoSafety';
 import { DEFAULTS, STORAGE_KEYS } from './constants/app';
+import './styles/Auth.css';
 
 const App: React.FC = () => {
   const { isPrivateMode, isPanicMode, togglePrivateMode, activatePanicMode } = useAppMode();
